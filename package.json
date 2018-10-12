@@ -22,5 +22,8 @@
         "planets",
         "orbit",
         "ephemerids"
-    ]
+    ],
+    "dependencies": {
+        "telnet-client": "^0.16.1"
+    }
 }
