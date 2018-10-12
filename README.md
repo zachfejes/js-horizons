@@ -2,7 +2,8 @@
 
 [![npm (scoped)](https://img.shields.io/npm/v/@zachfejes/js-horizons.svg)](https://github.com/zachfejes/js-horizons) 
 [![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/react.svg)](https://github.com/zachfejes/js-horizons)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/zachfejes/js-horizons)
+
 
 Welcome to JS-HORIZONS! This is an wrapper library for the JPL HORIZONS database, which provides incredible data on all major (and a ton of minor) bodies in our solar system!
 

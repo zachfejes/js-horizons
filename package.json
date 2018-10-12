@@ -2,7 +2,7 @@
     "name": "@zachfejes/js-horizons",
     "version": "0.3.0",
     "description": "JavaScript client wrapper for the HORIZONS database",
-    "licence": "MIT",
+    "license": "MIT",
     "repository": "zachfejes/js-horizons",
     "main": "index.js",
     "keywords": [
