@@ -1,4 +1,26 @@
 {
     "name": "@zachfejes/js-horizons",
-    "version": "0.1.0"
+    "version": "0.2.0",
+    "description": "JavaScript client wrapper for the HORIZONS database",
+    "licence": "MIT",
+    "repository": "zachfejes/js-horizons",
+    "main": "index.js",
+    "keywords": [
+        "js-horizons",
+        "js",
+        "nasa",
+        "jpl",
+        "horizons",
+        "javascript",
+        "database",
+        "npm",
+        "telnet",
+        "package",
+        "zachfejes",
+        "space",
+        "planet",
+        "planets",
+        "orbit",
+        "ephemerids"
+    ]
 }

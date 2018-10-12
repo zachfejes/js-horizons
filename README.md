@@ -10,3 +10,19 @@ This is a living project, and as such it'll be going through a lot of updates an
 
 [![NpmLicense](https://img.shields.io/npm/l/js-horizons.svg)](https://github.com/zachfejes/js-horizons/tree/master)
 
+## Install
+
+```
+    $ npm install @zachfejes/js-horizons
+```
+
+## Usage
+
+```
+    const { Horizons } from "@zachfejes/js-horizons";
+
+    const session = new Horizons();
+
+    session.data.planets;
+    //=> ["Mercury", "Venus", "Earth"]
+```
