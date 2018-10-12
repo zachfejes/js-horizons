@@ -25,5 +25,8 @@
     ],
     "dependencies": {
         "telnet-client": "^0.16.1"
+    },
+    "devDependencies": {
+        "coveralls": "^3.0.2"
     }
 }
