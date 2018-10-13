@@ -1,5 +1,20 @@
 const Horizons = require("../index");
 
+describe("should fail", () => {
+    test("if trying to search without initializing", () => {
+        let horizons = new Horizons();
+        
+        const ERROR_NOT_CONNECTED = new Error("Horizons is not connected. You must initialize it before making a request.");
+
+        expect(() => { horizons.search("test", () => {}); })
+            .toThrow(ERROR_NOT_CONNECTED[0]);
+
+        if(horizons.isConnected()) {
+            horizons.close();
+        }
+    });
+});
+
 test('can create an object and initialize it with a connection to JPL HORIZONS', (done) => {
     let horizons = new Horizons();
     expect(horizons.isConnected()).toBe(false);

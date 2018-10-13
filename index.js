@@ -1,5 +1,8 @@
 var Telnet = require("telnet-client");
 
+const ERROR_NOT_CONNECTED = new Error("Horizons is not connected. You must initialize it before making a request.");
+module.exports = ERROR_NOT_CONNECTED;
+
 const HORIZONS_URL = "horizons.jpl.nasa.gov";
 const HORIZONS_PORT = 6775;
 const HORIZONS_PROMPT = "Horizons> ";
@@ -10,7 +13,7 @@ var params = {
     shellPrompt: HORIZONS_PROMPT,
     timeout: 10000,
     initialLFCR: true
-  }
+};
 
 module.exports = class Horizons {
     constructor() {
@@ -66,7 +69,7 @@ module.exports = class Horizons {
 
     search(input, cb) {
         if(!this._connected) {
-            throw new Error("Horizons is not connected. You must initialize it before making a request.");
+            throw new Error(ERROR_NOT_CONNECTED);
         }
 
         this._stringBuffer = "";

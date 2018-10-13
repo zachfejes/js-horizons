@@ -35,6 +35,20 @@
         "regenerator-runtime": "^0.12.1"
     },
     "scripts": {
-        "test": "jest"
-    }
+        "test": "jest --env=jsdom --coverage"
+    },
+    "jest": {
+        "coverageReporters": [
+          "html"
+        ],
+        "collectCoverageFrom": [
+            "index.js",
+            "src/**/*.{js,jsx}",
+            "!node_modules",
+            "!src/registerServiceWorker.js",
+            "!coverage",
+            "!sandbox",
+            "!test"
+        ]
+      }
 }
