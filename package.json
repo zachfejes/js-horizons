@@ -6,14 +6,35 @@
     "repository": "zachfejes/js-horizons",
     "main": "index.js",
     "keywords": [
-        "js-horizons", "js", "nasa", "jpl", "horizons", "javascript", "database",
-        "npm", "telnet", "package", "zachfejes", "space", "planet", "planets", "orbit", "ephemerids"
+        "js-horizons",
+        "js",
+        "nasa",
+        "jpl",
+        "horizons",
+        "javascript",
+        "database",
+        "npm",
+        "telnet",
+        "package",
+        "zachfejes",
+        "space",
+        "planet",
+        "planets",
+        "orbit",
+        "ephemerids"
     ],
     "dependencies": {
         "telnet-client": "^0.16.1"
     },
     "devDependencies": {
+        "babel-core": "^6.26.3",
+        "babel-jest": "^23.6.0",
+        "babel-preset-env": "^1.7.0",
         "coveralls": "^3.0.2",
-        "jest": "^23.6.0"
+        "jest": "^23.6.0",
+        "regenerator-runtime": "^0.12.1"
+    },
+    "scripts": {
+        "test": "jest"
     }
 }
