@@ -10,7 +10,6 @@ var params = {
     shellPrompt: HORIZONS_PROMPT,
     timeout: 10000,
     initialLFCR: true
-    // removeEcho: 4
   }
 
 module.exports = class Horizons {
@@ -73,23 +72,13 @@ module.exports = class Horizons {
         this._stringBuffer = "";
 
         this._session.on('data', (buffer) => {
-            this._stringBuffer += buffer.toString();
+            //this._stringBuffer += buffer.toString();
 
-            console.log("buffer: ", buffer.toString());
-
-            if(buffer.toString().match(HORIZONS_PROMPT)) {
+            if(buffer.toString().match(HORIZONS_PROMPT) || buffer.toString().match("<cr>: ")) {
                 cb(null, this._stringBuffer);
             }
         });
 
-        console.log(input);
-        this._session.send(input + "\r\n");
+        this._session.send(`${input}\r\n`);
     }
-
-    // sendCommand(cmd) {
-    //     if(!this._session) {
-
-    //     }
-    //     this._session.exec
-    // }
 }
