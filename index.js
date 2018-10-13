@@ -1,4 +1,5 @@
 var Telnet = require("telnet-client");
+const parseSearchData = require("./src/parseSearchData");
 
 const ERROR_NOT_CONNECTED = new Error("Horizons is not connected. You must initialize it before making a request.");
 module.exports = ERROR_NOT_CONNECTED;
@@ -75,9 +76,8 @@ module.exports = class Horizons {
         this._stringBuffer = "";
 
         this._session.on('data', (buffer) => {
-            //this._stringBuffer += buffer.toString();
-
             if(buffer.toString().match(HORIZONS_PROMPT) || buffer.toString().match("<cr>: ")) {
+                parseSearchData(this._stringBuffer);
                 cb(null, this._stringBuffer);
             }
         });
