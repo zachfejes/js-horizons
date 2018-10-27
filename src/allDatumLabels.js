@@ -62,7 +62,7 @@ const datatypes = [
             "Sid. rot. period"
         ],
         units: "hr",
-        regex: /(Sid(\.|ereal) rot\.|Rotational) period[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*(Synchronous|[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*)/gi
+        regex: /(Sid(\.|ereal) rot\.|Rotational) period[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*([0-9\.\/x]+[\s]*[ydhms][\s])+/gi
     },
     {
         label: "Sidereal Rotational Rate",
@@ -82,7 +82,7 @@ const datatypes = [
             "Sidereal orbit period"
         ],
         units: "",
-        regex: /(Mean )?Sidereal orb(\.|it)? per(iod|[\.])*[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+        regex: /(Mean )?Sidereal orb(\.|it)? per(iod|[\.])*[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*([0-9\.\/x]+[\s]*[ydhms][\s])+/gi
     },
     {
         label: "Orbital Period",
@@ -90,7 +90,7 @@ const datatypes = [
             "Orbital period"
         ],
         units: "y",
-        regex: /Orbital Period[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+        regex: /Orbital Period[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*([0-9\.\/x]+[\s]*[ydhms][\s])+/gi
     },
     {
         label: "Mean Sidereal Day",

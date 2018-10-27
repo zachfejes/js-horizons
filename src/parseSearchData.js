@@ -12,6 +12,7 @@ const REGEX_ERROR_EXTRACTOR = /(?<=\+\-[\s]*)[0-9\.]*/g;
 const REGEX_NAME_EXTRACTOR = /(?<=Revised: [A-Za-z]* [0-9]{1,2}\, [0-9]{2,4}[\s]{2,})[A-Za-z0-9\\\/\-\(\)\,]+( \/ \([A-Za-z0-9]*\))?/gi;
 const REGEX_SOLAR_DATA_EXTRACTOR = /[\s]{2,}[0-9\.]+[\s]{2,}[0-9\.]+[\s]{2,}[0-9\.]+/g
 const REGEX_GM_SIGMA_EXTRACTOR = /(?<=\+\-)[0-9\.]+/g;
+const REGEX_TIME_DATA_EXTRACTOR = /(?<=\=[\s]*[\~]*[\s]*)([0-9\.\/x]+[\s]*[ydhms]([\s]|$))+/g
 const REGEX_ID_EXTRACTOR = / /g;
 
 module.exports = function parseSearchData(searchData) {
@@ -87,7 +88,19 @@ module.exports = function parseSearchData(searchData) {
 function parseRawData(raw, datum) {
     let value, _value, magnitude, units, error;
 
-    if(datum.label === "Solar Constant" || datum.label === "Maximum Planetary IR" || datum.label === "Minimum Planetary IR") {
+    const IRDatatypes = [
+        "Solar Constant",
+        "Maximum Planetary IR",
+        "Minimum Planetary IR"
+    ];
+
+    const timeDatatypes = [
+        "Sidereal Orbital Period",
+        "Sidereal Rotational Period",
+        "Orbital Period"
+    ];
+
+    if(IRDatatypes.indexOf(datum.label) > -1) {
         _value = raw.match(REGEX_SOLAR_DATA_EXTRACTOR);
         _value = _value && _value[0];
         _value = _value && _value.trim() && _value.split(/[\s]{2,}/).filter(x => x);
@@ -100,6 +113,24 @@ function parseRawData(raw, datum) {
     else if(datum.label === "GM 1-sigma") {
         value = raw.match(REGEX_GM_SIGMA_EXTRACTOR);
         value = value && value.find(x => x);
+    }
+    else if(datum.label === "Mean Solar Day" && raw.indexOf("hrs") > -1) {
+        value = raw.match(REGEX_DATA_EXTRACTOR);
+        value = value && value.find(x => x);
+
+        magnitude = raw.match(REGEX_MAGNITUDE_EXTRACTOR);
+        magnitude = magnitude && magnitude.find(x => x);
+
+        error = raw.match(REGEX_ERROR_EXTRACTOR);
+        error = error && error.find(x => x);
+
+        units = "h";
+    }
+    else if (timeDatatypes.indexOf(datum.label) > -1) {
+        value = raw.match(REGEX_TIME_DATA_EXTRACTOR);
+        value = value && value.find(x => x);
+
+        units = "mixed";
     }
     else {
         value = raw.match(REGEX_DATA_EXTRACTOR);
