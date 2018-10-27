@@ -10,16 +10,25 @@ const datatypes = [
             "Mean Radius"
         ],
         units: "km",
-        regex: /(?<!(Equ. |Equatorial |Core ))(Vol\. Mean |Mean )*Radius[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+        regex: /(?<!(Equ. |Equat. |Equatorial |Core |Polar |Pol. ))(Vol\. Mean |Mean )*Radius[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
     },
     {
         label: "Equatorial Radius",
         variations: [
             "Equ. Radius",
+            "Equat. radius",
             "Equatorial radius"
         ],
         units: "km",
-        regex: /Equ(\.|atorial) Radius[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+        regex: /Equ(\.|at\.|atorial) Radius[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+    },
+    {
+        label: "Polar Radius",
+        variations: [
+            "Polar radius"
+        ],
+        units: "km",
+        regex: /Pol(\.|ar) Radius[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
     },
     {
         label: "Density",
@@ -49,10 +58,11 @@ const datatypes = [
         label: "Sidereal Rotational Period",
         variations: [
             "Sidereal rot. period",
-            "Rotational period"
+            "Rotational period",
+            "Sid. rot. period"
         ],
         units: "hr",
-        regex: /(Sidereal rot\.|Rotational) period[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+        regex: /(Sid(\.|ereal) rot\.|Rotational) period[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
     },
     {
         label: "Sidereal Rotational Rate",
@@ -68,10 +78,11 @@ const datatypes = [
         variations: [
             "Sidereal orb period",
             "Mean sidereal orb per",
-            "Sidereal orb. per."
+            "Sidereal orb. per.",
+            "Sidereal orbit period"
         ],
         units: "",
-        regex: /(Mean )?Sidereal orb[\.]? per(iod|[\.])*[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+        regex: /(Mean )?Sidereal orb(\.|it)? per(iod|[\.])*[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
     },
     {
         label: "Orbital Period",
@@ -101,20 +112,22 @@ const datatypes = [
         label: "Equatorial Gravity",
         variations: [
             "Equ. gravity",
-            "g_e"
+            "Equ. grav",
+            "g_e",
         ],
         units: "m/s^2",
-        regex: /(Equ\. gravity|g\_e)[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+        regex: /(Equ\. grav(ity)?|g\_e)[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
     },
     {
         label: "Polar Gravity",
         variations: [
             "Pol. gravity",
             "g_p",
-            "Polar gravity"
+            "Polar gravity",
+            "Pol. grav"
         ],
         units: "m/s^2",
-        regex: /(Pol(\.|ar) gravity|g\_p)[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+        regex: /(Pol(\.|ar) grav(ity)?|g\_p)[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
     },
     {
         label: "Orbital Gravity",
@@ -208,6 +221,14 @@ const datatypes = [
         regex: /(Visual mag\. )?V\(1\,0\)[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
     },
     {
+        label: "Visual Magnitude (Opposition)",
+        variations: [
+            "Vis. mag. (opposition)"
+        ],
+        units: undefined,
+        regex: /Vis\. mag\. \(opposition\)[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+    },
+    {
         label: "Obliquity to Orbit",
         variations: [
             "Obliquity to orbit"
@@ -220,17 +241,18 @@ const datatypes = [
         variations: [
             "Hill's sphere rad."
         ],
-        units: undefined,
+        units: "Rp",
         regex: /Hill\'s Sphere Rad\.[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
     },
     {
         label: "Orbit Speed",
         variations: [
             "Orbit speed",
-            "Orbital speed"
+            "Orbital speed",
+            "Mean orbit speed"
         ],
         units: "km/s",
-        regex: /Orbit(al)? Speed[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+        regex: /(Mean )?Orbit(al)? Speed[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
     },
     {
         label: "Escape Velocity",
@@ -323,6 +345,22 @@ const datatypes = [
         regex: /Inner Core Rad[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
     },
     {
+        label: "Rocky Core Mass",
+        variations: [
+            "Rocky core mass"
+        ],
+        units: "Mc/M",
+        regex: /Rocky core mass[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+    },
+    {
+        label: "Atmospheric Temperature (1 bar)",
+        variations: [
+            "Atmos. temp. (1 bar)"
+        ],
+        units: "K",
+        regex: /Atmos\. temp\. \(1 bar\)[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+    },
+    {
         label: "Magnetic Moment",
         variations: [
             "Magnetic moment"
@@ -361,6 +399,14 @@ const datatypes = [
         ],
         units: "deg",
         regex: /Inclination[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+    },
+    {
+        label: "Roche Limit (Ice)",
+        variations: [
+            "A_roche(ice)/Rp"
+        ],
+        units: "1/Rp",
+        regex: /A_roche\(ice\)\/Rp[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
     }
 ]
 
