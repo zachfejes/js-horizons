@@ -6,10 +6,11 @@ const TYPE_ERROR_STRING = new TypeError("The searchData parameter must be a stri
 const REGEX_MULTIPLE_BODIES_FOUND = /[\*]*[\n|\r\n]\sMultiple/;
 const REGEX_SINGLE_BODY_FOUND = /[\*]*[A-Za-z0-9\s\n\r:;+\-.,'=()~!@#$%^&*\/\"]*(PHYSICAL PROPERTIES|PHYSICAL DATA)/;
 
-const REGEX_DATA_EXTRACTOR = /(?<=\=[\s]*[\~]*[\+]*[\-]*[\s]*)[0-9\.\/x]*/g
+const REGEX_DATA_EXTRACTOR = /(?<=\=[\s]*[\~]*[\+]*[\-]*[\s]*)(Synchronous|[0-9\.\/x]*)/g
 const REGEX_MAGNITUDE_EXTRACTOR = /10\^[0-9]*/g
 const REGEX_ERROR_EXTRACTOR = /(?<=\+\-[\s]*)[0-9\.]*/g;
 const REGEX_NAME_EXTRACTOR = /(?<=Revised: [A-Za-z]* [0-9]{1,2}\, [0-9]{2,4}[\s]{2,})[A-Za-z0-9\\\/\-\(\)\,]+( \/ \([A-Za-z0-9]*\))?/gi;
+const REGEX_SOLAR_DATA_EXTRACTOR = /[\s]{2,}[0-9\.]+[\s]{2,}[0-9\.]+[\s]{2,}[0-9\.]+/g
 const REGEX_ID_EXTRACTOR = / /g;
 
 module.exports = function parseSearchData(searchData) {
@@ -37,7 +38,7 @@ module.exports = function parseSearchData(searchData) {
             raw = raw && raw[0] && raw[0].trim();
 
             if(raw) {
-                let { value, magnitude, error, units } = parseRawData(raw);
+                var { value, magnitude, error, units } = parseRawData(raw, datum);
 
                 parsedData[0][datum.label] = {
                     raw,
@@ -82,42 +83,30 @@ module.exports = function parseSearchData(searchData) {
     }
 }
 
-function parseRawData(raw) {
-    let value, magnitude, units, error;
+function parseRawData(raw, datum) {
+    let value, _value, magnitude, units, error;
 
-    value = raw.match(REGEX_DATA_EXTRACTOR);
-    value = value && value.find(x => x);
+    if(datum.label === "Solar Constant" || datum.label === "Maximum Planetary IR" || datum.label === "Minimum Planetary IR") {
+        _value = raw.match(REGEX_SOLAR_DATA_EXTRACTOR);
+        _value = _value && _value[0];
+        _value = _value && _value.trim() && _value.split(/[\s]{2,}/).filter(x => x);
+        value = {
+            Perihelion: _value[0],
+            Aphelion: _value[1],
+            Mean: _value[2]
+        };
+    }
+    else {
+        value = raw.match(REGEX_DATA_EXTRACTOR);
+        value = value && value.find(x => x);
 
-    magnitude = raw.match(REGEX_MAGNITUDE_EXTRACTOR);
-    magnitude = magnitude && magnitude.find(x => x);
+        magnitude = raw.match(REGEX_MAGNITUDE_EXTRACTOR);
+        magnitude = magnitude && magnitude.find(x => x);
 
-    error = raw.match(REGEX_ERROR_EXTRACTOR);
-    error = error && error.find(x => x);
-
+        error = raw.match(REGEX_ERROR_EXTRACTOR);
+        error = error && error.find(x => x);
+    }
     //TODO: create units extractor regex and pass it as units
 
     return ({ value, magnitude, units, error });
-}
-
-
-function parsePhysicalDataLine(line) {
-    let brokenLine = line.split(/[\s]*\(|\)[\s]*\=[\s]*|\)[\s]*|[\s]+[\=\+\-]*[\s]+/);
-
-    return({
-        name: (brokenLine[0] && brokenLine[0].replace(/[\s]*/g, "")) || undefined,
-        units: brokenLine[1] || undefined,
-        value: brokenLine[2] || undefined,
-        error: brokenLine[4] || undefined,
-    });
-}
-
-function parseOrbitalDataLine(line) {
-    let brokenLine = line.split(/[\s]*\((?=[A-Za-z])|\)[\s]*\=[\s]*|[\s]{2,}|\=[\s]*/);
-
-    return({
-        name: (brokenLine[0] && brokenLine[0].replace(/\,\s[A-Za-z]{1}|\-|\s/g, "")) || undefined,
-        units: brokenLine[1] || undefined,
-        value: brokenLine[2] || undefined,
-        error: brokenLine[3] || undefined
-    });
 }

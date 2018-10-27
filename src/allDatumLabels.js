@@ -62,7 +62,7 @@ const datatypes = [
             "Sid. rot. period"
         ],
         units: "hr",
-        regex: /(Sid(\.|ereal) rot\.|Rotational) period[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+        regex: /(Sid(\.|ereal) rot\.|Rotational) period[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*(Synchronous|[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*)/gi
     },
     {
         label: "Sidereal Rotational Rate",
@@ -269,7 +269,7 @@ const datatypes = [
             "Solar Constant"
         ],
         units: "W/m^2",
-        regex: /Solar Constant \(W\/m\^2\)[\s]+[0-9]+[\s]+[0-9]+[\s]+[0-9]+/gi
+        regex: /Solar Constant \(W\/m\^2\)[\s]+[0-9\.]+[\s]+[0-9\.]+[\s]+[0-9\.]+/gi
     },
     {
         label: "Maximum Planetary IR",
@@ -277,7 +277,7 @@ const datatypes = [
             "Maximum Planetary IR"
         ],
         units: "W/m^2",
-        regex: /Maximum Planetary IR \(W\/m\^2\)[\s]+[0-9]+[\s]+[0-9]+[\s]+[0-9]+/gi
+        regex: /Maximum Planetary IR \(W\/m\^2\)[\s]+[0-9\.]+[\s]+[0-9\.]+[\s]+[0-9\.]+/gi
     },
     {
         label: "Minimum Planetary IR",
@@ -285,7 +285,7 @@ const datatypes = [
             "Minimum Planetary IR"
         ],
         units: "W/m^2",
-        regex: /Minimum Planetary IR \(W\/m\^2\)[\s]+[0-9]+[\s]+[0-9]+[\s]+[0-9]+/gi
+        regex: /Minimum Planetary IR \(W\/m\^2\)[\s]+[0-9\.]+[\s]+[0-9\.]+[\s]+[0-9\.]+/gi
     },
     {
         label: "Polar Axis",
