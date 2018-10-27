@@ -15,7 +15,6 @@ const REGEX_NAME_EXTRACTOR = /(?<=Revised: [A-Za-z]* [0-9]{1,2}\, [0-9]{2,4}[\s]
 const REGEX_SOLAR_DATA_EXTRACTOR = /[\s]{2,}[0-9\.]+[\s]{2,}[0-9\.]+[\s]{2,}[0-9\.]+/g
 const REGEX_GM_SIGMA_EXTRACTOR = /(?<=\+\-[\s]*)[0-9\.]+/g;
 const REGEX_TIME_DATA_EXTRACTOR = /(?<=\=[\s]*[\~]*[\s]*)([0-9\.\/x]+[\s]*[ydhms]([\s]|$))+/g
-const REGEX_ID_EXTRACTOR = / /g;
 
 const IRDatatypes = [
     "Solar Constant",
@@ -145,12 +144,10 @@ function findValue(raw, datum) {
     altError = altError && altError.find(x => x);
 
     if(altError) {
-        console.log("value before adding the final digit: ", value);
         lastDigit = raw.match(REGEX_ALT_ERROR_DIGIT_EXTRACTOR);
         lastDigit = lastDigit && lastDigit.find(x => x !== undefined && x !== '');
 
         value = value.toString() + lastDigit.toString();
-        console.log("value after adding the last digit: ", value);
     }
 
     return value;
