@@ -1,6 +1,6 @@
 {
     "name": "@zachfejes/js-horizons",
-    "version": "0.3.1",
+    "version": "0.4.0",
     "description": "JavaScript client wrapper for the HORIZONS database",
     "license": "MIT",
     "repository": "zachfejes/js-horizons",
@@ -39,7 +39,7 @@
     },
     "jest": {
         "coverageReporters": [
-          "html"
+            "html"
         ],
         "collectCoverageFrom": [
             "index.js",
@@ -50,5 +50,5 @@
             "!sandbox",
             "!test"
         ]
-      }
+    }
 }
