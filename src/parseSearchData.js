@@ -6,11 +6,12 @@ const TYPE_ERROR_STRING = new TypeError("The searchData parameter must be a stri
 const REGEX_MULTIPLE_BODIES_FOUND = /[\*]*[\n|\r\n]\sMultiple/;
 const REGEX_SINGLE_BODY_FOUND = /[\*]*[A-Za-z0-9\s\n\r:;+\-.,'=()~!@#$%^&*\/\"]*(PHYSICAL PROPERTIES|PHYSICAL DATA)/;
 
-const REGEX_DATA_EXTRACTOR = /(?<=\=[\s]*[\~]*[\+]*[\-]*[\s]*)(Synchronous|[0-9\.\/x]*)/g
+const REGEX_DATA_EXTRACTOR = /(?<=\=[\s]*[\~]*(\+\-)*[\s]*)(Synchronous|(\-|\+)?[0-9\.\/x]*)/g
 const REGEX_MAGNITUDE_EXTRACTOR = /10\^[0-9]*/g
 const REGEX_ERROR_EXTRACTOR = /(?<=\+\-[\s]*)[0-9\.]*/g;
 const REGEX_NAME_EXTRACTOR = /(?<=Revised: [A-Za-z]* [0-9]{1,2}\, [0-9]{2,4}[\s]{2,})[A-Za-z0-9\\\/\-\(\)\,]+( \/ \([A-Za-z0-9]*\))?/gi;
 const REGEX_SOLAR_DATA_EXTRACTOR = /[\s]{2,}[0-9\.]+[\s]{2,}[0-9\.]+[\s]{2,}[0-9\.]+/g
+const REGEX_GM_SIGMA_EXTRACTOR = /(?<=\+\-)[0-9\.]+/g;
 const REGEX_ID_EXTRACTOR = / /g;
 
 module.exports = function parseSearchData(searchData) {
@@ -95,6 +96,10 @@ function parseRawData(raw, datum) {
             Aphelion: _value[1],
             Mean: _value[2]
         };
+    }
+    else if(datum.label === "GM 1-sigma") {
+        value = raw.match(REGEX_GM_SIGMA_EXTRACTOR);
+        value = value && value.find(x => x);
     }
     else {
         value = raw.match(REGEX_DATA_EXTRACTOR);
