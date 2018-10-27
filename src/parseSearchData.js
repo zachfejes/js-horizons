@@ -9,11 +9,26 @@ const REGEX_SINGLE_BODY_FOUND = /[\*]*[A-Za-z0-9\s\n\r:;+\-.,'=()~!@#$%^&*\/\"]*
 const REGEX_DATA_EXTRACTOR = /(?<=\=[\s]*[\~]*(\+\-)*[\s]*)(Synchronous|(\-|\+)?[0-9\.\/x]*)/g
 const REGEX_MAGNITUDE_EXTRACTOR = /10\^[0-9]*/g
 const REGEX_ERROR_EXTRACTOR = /(?<=\+\-[\s]*)[0-9\.]*/g;
+const REGEX_ALT_ERROR_EXTRACTOR = /(?<=[0-9\.]+\([0-9]+\+\-)[0-9]*/g;
+const REGEX_ALT_ERROR_DIGIT_EXTRACTOR = /(?<=[0-9\.]+\()[0-9]*/g;
 const REGEX_NAME_EXTRACTOR = /(?<=Revised: [A-Za-z]* [0-9]{1,2}\, [0-9]{2,4}[\s]{2,})[A-Za-z0-9\\\/\-\(\)\,]+( \/ \([A-Za-z0-9]*\))?/gi;
 const REGEX_SOLAR_DATA_EXTRACTOR = /[\s]{2,}[0-9\.]+[\s]{2,}[0-9\.]+[\s]{2,}[0-9\.]+/g
-const REGEX_GM_SIGMA_EXTRACTOR = /(?<=\+\-)[0-9\.]+/g;
+const REGEX_GM_SIGMA_EXTRACTOR = /(?<=\+\-[\s]*)[0-9\.]+/g;
 const REGEX_TIME_DATA_EXTRACTOR = /(?<=\=[\s]*[\~]*[\s]*)([0-9\.\/x]+[\s]*[ydhms]([\s]|$))+/g
 const REGEX_ID_EXTRACTOR = / /g;
+
+const IRDatatypes = [
+    "Solar Constant",
+    "Maximum Planetary IR",
+    "Minimum Planetary IR"
+];
+
+const timeDatatypes = [
+    "Sidereal Orbital Period",
+    "Sidereal Rotational Period",
+    "Orbital Period",
+    "Mean Solar Day"
+];
 
 module.exports = function parseSearchData(searchData) {
     if(typeof searchData !== "string") {
@@ -86,19 +101,18 @@ module.exports = function parseSearchData(searchData) {
 }
 
 function parseRawData(raw, datum) {
-    let value, _value, magnitude, units, error;
+    let value, magnitude, units, error;
 
-    const IRDatatypes = [
-        "Solar Constant",
-        "Maximum Planetary IR",
-        "Minimum Planetary IR"
-    ];
+    value = findValue(raw, datum) || undefined;
+    error = findError(raw, datum) || undefined;
+    units = findUnits(raw, datum) || undefined;
+    magnitude = findMagnitude(raw) || undefined;
 
-    const timeDatatypes = [
-        "Sidereal Orbital Period",
-        "Sidereal Rotational Period",
-        "Orbital Period"
-    ];
+    return ({ value, magnitude, units, error });
+}
+
+function findValue(raw, datum) {
+    let value, _value, altError, lastDigit;
 
     if(IRDatatypes.indexOf(datum.label) > -1) {
         _value = raw.match(REGEX_SOLAR_DATA_EXTRACTOR);
@@ -117,32 +131,67 @@ function parseRawData(raw, datum) {
     else if(datum.label === "Mean Solar Day" && raw.indexOf("hrs") > -1) {
         value = raw.match(REGEX_DATA_EXTRACTOR);
         value = value && value.find(x => x);
-
-        magnitude = raw.match(REGEX_MAGNITUDE_EXTRACTOR);
-        magnitude = magnitude && magnitude.find(x => x);
-
-        error = raw.match(REGEX_ERROR_EXTRACTOR);
-        error = error && error.find(x => x);
-
-        units = "h";
     }
     else if (timeDatatypes.indexOf(datum.label) > -1) {
         value = raw.match(REGEX_TIME_DATA_EXTRACTOR);
         value = value && value.find(x => x);
-
-        units = "mixed";
     }
     else {
         value = raw.match(REGEX_DATA_EXTRACTOR);
         value = value && value.find(x => x);
-
-        magnitude = raw.match(REGEX_MAGNITUDE_EXTRACTOR);
-        magnitude = magnitude && magnitude.find(x => x);
-
-        error = raw.match(REGEX_ERROR_EXTRACTOR);
-        error = error && error.find(x => x);
     }
-    //TODO: create units extractor regex and pass it as units
 
-    return ({ value, magnitude, units, error });
+    altError = raw.match(REGEX_ALT_ERROR_EXTRACTOR);
+    altError = altError && altError.find(x => x);
+
+    if(altError) {
+        console.log("value before adding the final digit: ", value);
+        lastDigit = raw.match(REGEX_ALT_ERROR_DIGIT_EXTRACTOR);
+        lastDigit = lastDigit && lastDigit.find(x => x !== undefined && x !== '');
+
+        value = value.toString() + lastDigit.toString();
+        console.log("value after adding the last digit: ", value);
+    }
+
+    return value;
+}
+
+function findError(raw, datum) {
+    let error, altError, value;
+
+    if(datum.label === "GM 1-sigma") {
+        return undefined;
+    }
+
+    error = raw.match(REGEX_ERROR_EXTRACTOR);
+    error = error && error.find(x => x);
+    altError = raw.match(REGEX_ALT_ERROR_EXTRACTOR);
+    altError = altError && altError.find(x => x);
+
+    if(altError) {
+        value = raw.match(REGEX_DATA_EXTRACTOR);
+        value = value && value.find(x => x)
+        value = value && value.replace(/[0-9]/g, "0");
+        error = value.toString() + altError.toString();
+    }
+
+    return error;
+}
+
+function findUnits(raw, datum) {
+    let units;
+
+    if(datum.label === "Mean Solar Day" && raw.indexOf("hrs") > -1) {
+        units = "h";
+    }
+    else if (timeDatatypes.indexOf(datum.label) > -1) {
+        units = "mixed";
+    }
+
+    return units;
+}
+
+function findMagnitude(raw) {
+    let magnitude = raw.match(REGEX_MAGNITUDE_EXTRACTOR);
+    return magnitude && magnitude.find(x => x);
 }

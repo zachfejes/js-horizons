@@ -87,10 +87,11 @@ const datatypes = [
     {
         label: "Orbital Period",
         variations: [
-            "Orbital period"
+            "Orbital period",
+            "Orbit period"
         ],
         units: "y",
-        regex: /Orbital Period[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*([0-9\.\/x]+[\s]*[ydhms][\s])+/gi
+        regex: /Orbit(al)? Period[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*([0-9\.\/x]+[\s]*[ydhms][\s])+/gi
     },
     {
         label: "Mean Sidereal Day",
@@ -106,7 +107,7 @@ const datatypes = [
             "Mean solar day"
         ],
         units: "s",
-        regex: /Mean Solar Day[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+        regex: /Mean Solar Day[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*([0-9\.\/x]+[\s]*[ydhms][\s])+/gi
     },
     {
         label: "Equatorial Gravity",
@@ -167,7 +168,7 @@ const datatypes = [
             "GM 1-sigma"
         ],
         units: "km^3/s^2",
-        regex: /GM 1\-sigma[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/g
+        regex: /GM 1\-sigma[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/g
     },
     {
         label: "Mass Ratio",
@@ -192,7 +193,7 @@ const datatypes = [
             "Mass of atmosphere"
         ],
         units: "kg",
-        regex: /Mass of Atmosphere[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+        regex: /Mass of Atmosphere[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[~]*[\s]*([0-9x\+\-\.\(\)\~\^]*(\s|$))*/gi
     },
     {
         label: "Maximum Angular Diameter",
