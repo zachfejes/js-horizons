@@ -77,8 +77,9 @@ module.exports = class Horizons {
 
         this._session.on('data', (buffer) => {
             if(buffer.toString().match(HORIZONS_PROMPT) || buffer.toString().match("<cr>: ")) {
-                parseSearchData(this._stringBuffer);
-                cb(null, this._stringBuffer);
+                const data = parseSearchData(this._stringBuffer);
+                console.log("Raw buffer data: ", this._stringBuffer);
+                cb(null, data);
             }
         });
 
