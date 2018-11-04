@@ -81,6 +81,11 @@ module.exports = class Horizons {
                 console.log("Raw buffer data: ", this._stringBuffer);
                 cb(null, data);
             }
+            else {
+                if(buffer.toString().indexOf(">EXACT< name search")) {
+                    this._session.send("yes\r\n");
+                }
+            }
         });
 
         this._session.send(`${input}\r\n`);

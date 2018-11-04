@@ -95,7 +95,10 @@ module.exports = function parseSearchData(searchData) {
         return(parsedData);
     }
     else {
-        console.log("The data is of an unknown structure, and could not be parsed");
+        console.log("The data is of an unknown structure, and could not be parsed. Returning original string.");
+        dataArray = searchData.split(/\*{10,}/g);
+        parsedData.push(dataArray[1].trim());
+        return(parsedData);
     }
 }
 
