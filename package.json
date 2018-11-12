@@ -1,6 +1,6 @@
 {
     "name": "@zachfejes/js-horizons",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "description": "JavaScript client wrapper for the HORIZONS database",
     "license": "MIT",
     "repository": "zachfejes/js-horizons",
@@ -32,6 +32,7 @@
         "babel-preset-env": "^1.7.0",
         "coveralls": "^3.0.2",
         "jest": "^23.6.0",
+        "merge": "^1.2.1",
         "regenerator-runtime": "^0.12.1"
     },
     "scripts": {
