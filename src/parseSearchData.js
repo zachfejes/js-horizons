@@ -4,7 +4,7 @@ const datatypes = allDatumLabels.datatypes;
 const TYPE_ERROR_STRING = new TypeError("The searchData parameter must be a string.");
 
 const REGEX_MULTIPLE_BODIES_FOUND = /[\*]*[\n|\r\n]\sMultiple/;
-const REGEX_SINGLE_BODY_FOUND = /[\*]*[A-Za-z0-9\s\n\r:;+\-.,'=()~!@#$%^&*\/\"]*(PHYSICAL PROPERTIES|PHYSICAL DATA)/;
+const REGEX_SINGLE_BODY_FOUND = /[\*]*[A-Za-z0-9\s\n\r:;+\-.,'=()~!@#$%^&*\/\"]*(PHYSICAL PROPERTIES|PHYSICAL DATA|physical parameters)/;
 
 const REGEX_DATA_EXTRACTOR = /(?<=\=[\s]*[\~]*(\+\-)*[\s]*)(Synchronous|(\-|\+)?[0-9\.\/x]*)/g
 const REGEX_MAGNITUDE_EXTRACTOR = /10\^[0-9]*/g

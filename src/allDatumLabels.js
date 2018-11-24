@@ -160,7 +160,7 @@ const datatypes = [
             "GM"
         ],
         units: "km^3/s^2",
-        regex: /GM(?!\s1\-sigma)[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/g
+        regex: /(?<!(AN))GM(?!\s1\-sigma)[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/g
     },
     {
         label: "GM 1-sigma",
@@ -380,26 +380,29 @@ const datatypes = [
     {
         label: "Semi-major Axis",
         variations: [
-            "Semi-major axis"
+            "Semi-major axis",
+            "A"
         ],
         units: "km",
-        regex: /Semi\-major Axis[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+        regex: /((?<!([A-Za-z]))A|Semi\-major Axis)[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
     },
     {
         label: "Eccentricity",
         variations: [
-            "Eccentricity"
+            "Eccentricity",
+            "EC"
         ],
         units: undefined,
-        regex: /Eccentricity[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+        regex: /(Eccentricity|EC)[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
     },
     {
         label: "Inclination",
         variations: [
-            "Inclination"
+            "Inclination",
+            "IN"
         ],
         units: "deg",
-        regex: /Inclination[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+        regex: /(IN|Inclination)[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
     },
     {
         label: "Roche Limit (Ice)",
@@ -408,6 +411,63 @@ const datatypes = [
         ],
         units: "1/Rp",
         regex: /A_roche\(ice\)\/Rp[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+    },
+    {
+        label: "Epoch",
+        variations: [
+            "EPOCH",
+            "JDTDB"
+        ],
+        units: "s",
+        regex: /EPOCH\=[\s]*[0-9x\+\-\.\(\)\~\^]*(?=(\s\!))/gi
+    },
+    {
+        label: "Perihelion Distance",
+        variations: [
+            "QR"
+        ],
+        units: "au",
+        regex: /(?<!([A-Za-z]))QR\=[\s]*[0-9x\+\-\.\(\)\~\^]*/gi
+    },
+    {
+        label: "Perihelion Julian Date",
+        variations: [
+            "TP"
+        ],
+        units: "s",
+        regex: /(?<!([A-Za-z]))TP\=[\s]*[0-9x\+\-\.\(\)\~\^]*/
+    },
+    {
+        label: "Longitude of the Ascending Node",
+        variations: [
+            "OM"
+        ],
+        units: "deg (w.r.t. ecliptic)",
+        regex: /(?<!([A-Za-z]))OM\=[\s]*[0-9x\+\-\.\(\)\~\^]*/gi
+    },
+    {
+        label: "Argument of Perihelion",
+        variations: [
+            "W"
+        ],
+        units: "deg (w.r.t. ecliptic)",
+        regex: /(?<!([A-Za-z]))W\=[\s]*[0-9x\+\-\.\(\)\~\^]*/gi
+    },
+    {
+        label: "Mean Anomaly",
+        variations: [
+            "MA"
+        ],
+        units: "degrees",
+        regex: /(?<!([A-Za-z]))MA\=[\s]*[0-9x\+\-\.\(\)\~\^]*/gi
+    },
+    {
+        label: "Mean Motion",
+        variations: [
+            "N"
+        ],
+        units: "deg/day",
+        regex: /(?<!([A-Za-z]))N\=[\s]*[0-9x\+\-\.\(\)\~\^]*/gi
     }
 ]
 
