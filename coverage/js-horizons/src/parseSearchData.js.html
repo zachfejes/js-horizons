@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for js-horizons/src/parseSearchData.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\index.html">All files</a> / <a href="index.html">js-horizons/src</a> parseSearchData.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">34.51% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>39/113</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">12.05% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>10/83</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">19.05% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>4/21</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">36.36% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>36/99</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const allDatumLabels = require("./allDatumLabels");
+const datatypes = allDatumLabels.datatypes;
+&nbsp;
+const TYPE_ERROR_STRING = new TypeError("The searchData parameter must be a string.");
+&nbsp;
+const REGEX_MULTIPLE_BODIES_FOUND = /[\*]*[\n|\r\n]\sMultiple/;
+const REGEX_SINGLE_BODY_FOUND = /[\*]*[A-Za-z0-9\s\n\r:;+\-.,'=()~!@#$%^&amp;*\/\"]*(PHYSICAL PROPERTIES|PHYSICAL DATA|physical parameters)/;
+&nbsp;
+const REGEX_DATA_EXTRACTOR = /(?&lt;=\=[\s]*[\~]*(\+\-)*[\s]*)(Synchronous|(\-|\+)?[0-9\.\/x]*)/g
+const REGEX_MAGNITUDE_EXTRACTOR = /10\^[0-9]*/g
+const REGEX_ERROR_EXTRACTOR = /(?&lt;=\+\-[\s]*)[0-9\.]*/g;
+const REGEX_ALT_ERROR_EXTRACTOR = /(?&lt;=[0-9\.]+\([0-9]+\+\-)[0-9]*/g;
+const REGEX_ALT_ERROR_DIGIT_EXTRACTOR = /(?&lt;=[0-9\.]+\()[0-9]*/g;
+const REGEX_NAME_EXTRACTOR = /(?&lt;=Revised: [A-Za-z]* [0-9]{1,2}\, [0-9]{2,4}[\s]{2,})[A-Za-z0-9\\\/\-\(\)\,]+( \/ \([A-Za-z0-9]*\))?/gi;
+const REGEX_SOLAR_DATA_EXTRACTOR = /[\s]{2,}[0-9\.]+[\s]{2,}[0-9\.]+[\s]{2,}[0-9\.]+/g
+const REGEX_GM_SIGMA_EXTRACTOR = /(?&lt;=\+\-[\s]*)[0-9\.]+/g;
+const REGEX_TIME_DATA_EXTRACTOR = /(?&lt;=\=[\s]*[\~]*[\s]*)([0-9\.\/x]+[\s]*[ydhms]([\s]|$))+/g
+&nbsp;
+const IRDatatypes = [
+    "Solar Constant",
+    "Maximum Planetary IR",
+    "Minimum Planetary IR"
+];
+&nbsp;
+const timeDatatypes = [
+    "Sidereal Orbital Period",
+    "Sidereal Rotational Period",
+    "Orbital Period",
+    "Mean Solar Day"
+];
+&nbsp;
+module.exports = function parseSearchData(searchData) {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if(typeof searchData !== "string") {
+<span class="cstat-no" title="statement not covered" >        throw TYPE_ERROR_STRING;</span>
+    }
+&nbsp;
+    let dataLine;
+    let dataArray = [];
+    let parsedData = [];
+    let i = 0;
+&nbsp;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if(searchData.match(REGEX_SINGLE_BODY_FOUND)) {
+<span class="cstat-no" title="statement not covered" >        console.log("We have uniquely specified a body");</span>
+        let name = <span class="cstat-no" title="statement not covered" >searchData.match(REGEX_NAME_EXTRACTOR);</span>
+<span class="cstat-no" title="statement not covered" >        name = name &amp;&amp; name[0] &amp;&amp; name[0].trim();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        parsedData.push({</span>
+            id: undefined,
+            name: name
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        datatypes.forEach(<span class="fstat-no" title="function not covered" >da</span>tum =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            raw = searchData.match(datum.regex);</span>
+<span class="cstat-no" title="statement not covered" >            raw = raw &amp;&amp; raw[0] &amp;&amp; raw[0].trim();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if(raw) {</span>
+                var { value, magnitude, error, units } = <span class="cstat-no" title="statement not covered" >parseRawData(raw, datum);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                parsedData[0][datum.label] = {</span>
+                    raw,
+                    value,
+                    magnitude,
+                    error,
+                    units: units || datum.units
+                }
+            }
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return parsedData;</span>
+    }
+    else <span class="missing-if-branch" title="else path not taken" >E</span>if(searchData.match(REGEX_MULTIPLE_BODIES_FOUND)) {
+        console.log(`We have found multiple bodies that match the query`);
+&nbsp;
+        dataArray = searchData.split(/[\*]{2,}/)[1].split(/[\n|\r\n]/); //extract table data
+        dataArray = dataArray.filter((line) =&gt; line.trim() !== "");
+&nbsp;
+        let startIndex = dataArray.findIndex((line) =&gt; line.match(/[\-]{2,}/));
+        startIndex++;
+        let endIndex = dataArray.findIndex((line) =&gt; line.includes("Number of matches"));
+        dataArray = dataArray.slice(startIndex, endIndex);
+        
+        let brokenString = [];
+        for(i = 0; i &lt; dataArray.length; i++) {
+            dataArray[i] = dataArray[i].trim();
+            brokenString = dataArray[i].split(/(?&lt;!\s)[\s]{2}|[\s]{2}(?!\s)/g);
+&nbsp;
+            parsedData.push({
+                id: brokenString[0],
+                name: brokenString[1],
+                designation: brokenString[2] &amp;&amp; brokenString[2].trim() !== "" ? <span class="branch-0 cbranch-no" title="branch not covered" >brokenString[2] </span>: undefined,
+                iau: brokenString[3] &amp;&amp; brokenString[3].trim() !== "" ? brokenString[3] : undefined
+            });
+        }
+&nbsp;
+        return(parsedData);
+    }
+    else {
+<span class="cstat-no" title="statement not covered" >        console.log("The data is of an unknown structure, and could not be parsed. Returning original string.");</span>
+<span class="cstat-no" title="statement not covered" >        dataArray = searchData.split(/\*{10,}/g);</span>
+<span class="cstat-no" title="statement not covered" >        parsedData.push(dataArray[1].trim());</span>
+<span class="cstat-no" title="statement not covered" >        return(parsedData);</span>
+    }
+}
+&nbsp;
+function <span class="fstat-no" title="function not covered" >parseRawData(</span>raw, datum) {
+    let value, magnitude, units, error;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    value = findValue(raw, datum) || undefined;</span>
+<span class="cstat-no" title="statement not covered" >    error = findError(raw, datum) || undefined;</span>
+<span class="cstat-no" title="statement not covered" >    units = findUnits(raw, datum) || undefined;</span>
+<span class="cstat-no" title="statement not covered" >    magnitude = findMagnitude(raw) || undefined;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return ({ value, magnitude, units, error });</span>
+}
+&nbsp;
+function <span class="fstat-no" title="function not covered" >findValue(</span>raw, datum) {
+    let value, _value, altError, lastDigit;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if(IRDatatypes.indexOf(datum.label) &gt; -1) {</span>
+<span class="cstat-no" title="statement not covered" >        _value = raw.match(REGEX_SOLAR_DATA_EXTRACTOR);</span>
+<span class="cstat-no" title="statement not covered" >        _value = _value &amp;&amp; _value[0];</span>
+<span class="cstat-no" title="statement not covered" >        _value = _value &amp;&amp; _value.trim() &amp;&amp; _value.split(/[\s]{2,}/).filter(<span class="fstat-no" title="function not covered" >x </span>=&gt; <span class="cstat-no" title="statement not covered" >x)</span>;</span>
+<span class="cstat-no" title="statement not covered" >        value = {</span>
+            Perihelion: _value[0],
+            Aphelion: _value[1],
+            Mean: _value[2]
+        };
+    }
+    else <span class="cstat-no" title="statement not covered" >if(datum.label === "GM 1-sigma") {</span>
+<span class="cstat-no" title="statement not covered" >        value = raw.match(REGEX_GM_SIGMA_EXTRACTOR);</span>
+<span class="cstat-no" title="statement not covered" >        value = value &amp;&amp; value.find(<span class="fstat-no" title="function not covered" >x </span>=&gt; <span class="cstat-no" title="statement not covered" >x)</span>;</span>
+    }
+    else <span class="cstat-no" title="statement not covered" >if(datum.label === "Mean Solar Day" &amp;&amp; raw.indexOf("hrs") &gt; -1) {</span>
+<span class="cstat-no" title="statement not covered" >        value = raw.match(REGEX_DATA_EXTRACTOR);</span>
+<span class="cstat-no" title="statement not covered" >        value = value &amp;&amp; value.find(<span class="fstat-no" title="function not covered" >x </span>=&gt; <span class="cstat-no" title="statement not covered" >x)</span>;</span>
+    }
+    else <span class="cstat-no" title="statement not covered" >if (timeDatatypes.indexOf(datum.label) &gt; -1) {</span>
+<span class="cstat-no" title="statement not covered" >        value = raw.match(REGEX_TIME_DATA_EXTRACTOR);</span>
+<span class="cstat-no" title="statement not covered" >        value = value &amp;&amp; value.find(<span class="fstat-no" title="function not covered" >x </span>=&gt; <span class="cstat-no" title="statement not covered" >x)</span>;</span>
+    }
+    else {
+<span class="cstat-no" title="statement not covered" >        value = raw.match(REGEX_DATA_EXTRACTOR);</span>
+<span class="cstat-no" title="statement not covered" >        value = value &amp;&amp; value.find(<span class="fstat-no" title="function not covered" >x </span>=&gt; <span class="cstat-no" title="statement not covered" >x)</span>;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    altError = raw.match(REGEX_ALT_ERROR_EXTRACTOR);</span>
+<span class="cstat-no" title="statement not covered" >    altError = altError &amp;&amp; altError.find(<span class="fstat-no" title="function not covered" >x </span>=&gt; <span class="cstat-no" title="statement not covered" >x)</span>;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if(altError) {</span>
+<span class="cstat-no" title="statement not covered" >        lastDigit = raw.match(REGEX_ALT_ERROR_DIGIT_EXTRACTOR);</span>
+<span class="cstat-no" title="statement not covered" >        lastDigit = lastDigit &amp;&amp; lastDigit.find(<span class="fstat-no" title="function not covered" >x </span>=&gt; <span class="cstat-no" title="statement not covered" >x !== undefined &amp;&amp; x !== '')</span>;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        value = value.toString() + lastDigit.toString();</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return value;</span>
+}
+&nbsp;
+function <span class="fstat-no" title="function not covered" >findError(</span>raw, datum) {
+    let error, altError, value;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if(datum.label === "GM 1-sigma") {</span>
+<span class="cstat-no" title="statement not covered" >        return undefined;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    error = raw.match(REGEX_ERROR_EXTRACTOR);</span>
+<span class="cstat-no" title="statement not covered" >    error = error &amp;&amp; error.find(<span class="fstat-no" title="function not covered" >x </span>=&gt; <span class="cstat-no" title="statement not covered" >x)</span>;</span>
+<span class="cstat-no" title="statement not covered" >    altError = raw.match(REGEX_ALT_ERROR_EXTRACTOR);</span>
+<span class="cstat-no" title="statement not covered" >    altError = altError &amp;&amp; altError.find(<span class="fstat-no" title="function not covered" >x </span>=&gt; <span class="cstat-no" title="statement not covered" >x)</span>;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if(altError) {</span>
+<span class="cstat-no" title="statement not covered" >        value = raw.match(REGEX_DATA_EXTRACTOR);</span>
+<span class="cstat-no" title="statement not covered" >        value = value &amp;&amp; value.find(<span class="fstat-no" title="function not covered" >x </span>=&gt; <span class="cstat-no" title="statement not covered" >x)</span></span>
+<span class="cstat-no" title="statement not covered" >        value = value &amp;&amp; value.replace(/[0-9]/g, "0");</span>
+<span class="cstat-no" title="statement not covered" >        error = value.toString() + altError.toString();</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return error;</span>
+}
+&nbsp;
+function <span class="fstat-no" title="function not covered" >findUnits(</span>raw, datum) {
+    let units;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if(datum.label === "Mean Solar Day" &amp;&amp; raw.indexOf("hrs") &gt; -1) {</span>
+<span class="cstat-no" title="statement not covered" >        units = "h";</span>
+    }
+    else <span class="cstat-no" title="statement not covered" >if (timeDatatypes.indexOf(datum.label) &gt; -1) {</span>
+<span class="cstat-no" title="statement not covered" >        units = "mixed";</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return units;</span>
+}
+&nbsp;
+function <span class="fstat-no" title="function not covered" >findMagnitude(</span>raw) {
+    let magnitude = <span class="cstat-no" title="statement not covered" >raw.match(REGEX_MAGNITUDE_EXTRACTOR);</span>
+<span class="cstat-no" title="statement not covered" >    return magnitude &amp;&amp; magnitude.find(<span class="fstat-no" title="function not covered" >x </span>=&gt; <span class="cstat-no" title="statement not covered" >x)</span>;</span>
+}</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jun 13 2019 21:50:47 GMT-0400 (Eastern Summer Time)
+</div>
+</div>
+<script src="..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\sorter.js"></script>
+</body>
+</html>
