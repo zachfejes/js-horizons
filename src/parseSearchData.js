@@ -5,6 +5,10 @@ const TYPE_ERROR_STRING = new TypeError("The searchData parameter must be a stri
 
 const REGEX_MULTIPLE_BODIES_FOUND = /[\*]*[\n|\r\n]\sMultiple/;
 const REGEX_SINGLE_BODY_FOUND = /[\*]*[A-Za-z0-9\s\n\r:;+\-.,'=()~!@#$%^&*\/\"]*(PHYSICAL PROPERTIES|PHYSICAL DATA|physical parameters)/;
+const REGEX_MULTIPLE_SMALL_BODIES_FOUND = /Matching small-bodies/;
+const REGEX_SINGLE_ASTEROID_FOUND = /Asteroid physical parameters/;
+const REGEX_SINGLE_COMET_FOUND = /Comet physical/;
+const REGEX_SINGLE_SPACECRAFT_FOUND = /spacecraft/;
 
 const REGEX_DATA_EXTRACTOR = /(?<=\=[\s]*[\~]*(\+\-)*[\s]*)(Synchronous|(\-|\+)?[0-9\.\/x]*)/g
 const REGEX_MAGNITUDE_EXTRACTOR = /10\^[0-9]*/g
@@ -38,10 +42,32 @@ module.exports = function parseSearchData(searchData) {
     let parsedData = [];
 
     if(searchData.match(REGEX_SINGLE_BODY_FOUND)) {
-        return parseSingleBody(searchData);
+        if(searchData.match(REGEX_SINGLE_ASTEROID_FOUND)) {
+            console.log("We have uniquely identified an asteroid.");
+            //TODO: Parse the asteroid data and return it
+            return parsedData;
+        }
+        else {
+            return parseSingleBody(searchData);
+        }
     }
     else if(searchData.match(REGEX_MULTIPLE_BODIES_FOUND)) {
         return parseMultipleBodies(searchData);
+    }
+    else if(searchData.match(REGEX_SINGLE_COMET_FOUND)) {
+        console.log("We have uniquely identified a comet.");
+        //TODO: Parse the comet data and return it
+        return parsedData;
+    }
+    else if(searchData.match(REGEX_SINGLE_SPACECRAFT_FOUND)) {
+        console.log("We have uniquely identified a spacecraft.");
+        //TODO: Parse the spacecraft data and return it
+        return parsedData;
+    }
+    else if(searchData.match(REGEX_MULTIPLE_SMALL_BODIES_FOUND)) {
+        console.log("We have found multiple small bodies that match the query.");
+        //TODO: Parse the small-body list and return it
+        return parsedData;
     }
     else {
         console.log("The data is of an unknown structure, and could not be parsed. Returning original string.");
