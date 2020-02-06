@@ -7,7 +7,7 @@
 
 Welcome to JS-HORIZONS! This is an wrapper library for the JPL HORIZONS database, which provides incredible data on all major (and a ton of minor) bodies in our solar system!
 
-This is a living project, and as such it'll be going through a lot of updates and tweaks. If you have any suggestions or are interested in collaborating on this project, shoot me a message!
+> Note: This is a living project, and as such it'll be going through a lot of updates and tweaks. If you have any suggestions or are interested in collaborating on this project, shoot me a message!
 
 ## I Like Space! What Does This Thing Do?
 
@@ -24,6 +24,10 @@ Simply put, the Horizons database lets you look up information on Planets, Moons
 If you know exactly what you're looking for, this package will help you quickly and efficiently retrieve information about it.
 
 If you don't know how to uniquely specify what you're looking for, no worries! The system will instead respond with a list of options, to help you narrow down your search.
+
+This package can currently be used to query the JPL Horizons database for information about any major body in our solar system, as well as a large subset of minor bodies (Moons). The data queried will be converted into predictably-structured JSON.
+
+As the Horizons database has many data sources with many different styles of notation, I can not yet guarentee that every value will be parsed perfectly. For this reason, I've also included the original text response of the JPL Horizons service in the response JSON.
 
 
 ## Install
@@ -46,20 +50,16 @@ If you don't know how to uniquely specify what you're looking for, no worries! T
     });
 ```
 
-## Current Capabilities
-
-This package can currently be used to query the JPL Horizons database for information about any major body in our solar system, as well as a large subset of minor bodies (Moons). The data queried will be converted into predictably-structured JSON.
-
-As the Horizons database has many data sources with many different styles of notation, I can not yet guarentee that every value will be parsed perfectly. For this reason, I've also included the original text response of the JPL Horizons service in the response JSON.
-
-
 
 ## Current Limitations
 
 The majority of (non-moon) minor bodies in the solar system are not yet supported by this package. Their data structures are usually quite different than those of the major bodies, and I'm currently dedicating a branch to parsing their data into a predictable JSON object like those currently supported. This way, in future, the package will be more easily integrated into your applications.
 
 
-## The Horizon Object
+## How to Use It
+
+
+### The Horizon Object
 
 The `Horizon` object represents a connection to the JPL Horizon database, and is the key object you will use to leverage its capabilities. I've described its public methods below.
 
@@ -80,9 +80,9 @@ Checks the internal connection state of telnet. Returns `true` if it has been in
 Searches the JPL Horizons database for the object provided in the `queryTerm` parameter. Takes a callback function `cb` as a second parameter, which is triggered when the database is finished sending back its buffered response. The `cb` function is passed two parameters: `error`, and `response`. `response` will be a JSON object containing details about the `queryTerm`.
 
 
-## Usage Examples
+### Usage Examples
 
-### Initializing the Connection
+#### Initializing the Connection
 
 In order to access the database, you must first initialize a connection to it. I've simplified this process by wrapping the Telnet client (used to connect and query the database) in a simple helper function.
 
@@ -100,7 +100,7 @@ In your application, you must require/import the `Horizons` object from this pac
     });
 ```
 
-### Searching for Information about a Planet
+#### Searching for Information about a Planet
 
 To retrieve planetary and orbital information, we will need to initialize our connection to the Horizons database, and then use the `search` method with an appropriate `queryTerm`. In this example, we're going to look up information on Jupiter.
 
@@ -218,7 +218,10 @@ That's a lot better. There's a lot more data retrieved than what I showed above,
 * Fully support all minor bodies
 * Support the generation of ephemerids for any body
 
-## Unique Identifiers
+
+## More Details
+
+### Unique Identifiers
 
 If you're like me and you'd rather get exactly what you're looking for without multiple queries, I have a handy reference for you. There is a system to the unique IDs the space industry uses for objects in our solar system, and it's pretty easy to learn.
 
@@ -255,7 +258,7 @@ Once you get used to this system, it's actually pretty easy to query what you're
 | 899 | Neptune         |
 
 
-## Data Structure
+### Data Structure
 
 All data retrieved for a body follows the same basic data structure.
 
