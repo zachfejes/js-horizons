@@ -4,7 +4,11 @@ const datatypes = allDatumLabels.datatypes;
 const TYPE_ERROR_STRING = new TypeError("The searchData parameter must be a string.");
 
 const REGEX_MULTIPLE_BODIES_FOUND = /[\*]*[\n|\r\n]\sMultiple/;
-const REGEX_SINGLE_BODY_FOUND = /[\*]*[A-Za-z0-9\s\n\r:;+\-.,'=()~!@#$%^&*\/\"]*(PHYSICAL PROPERTIES|PHYSICAL DATA)/;
+const REGEX_SINGLE_BODY_FOUND = /[\*]*[A-Za-z0-9\s\n\r:;+\-.,'=()~!@#$%^&*\/\"]*(PHYSICAL PROPERTIES|PHYSICAL DATA|physical parameters)/;
+const REGEX_MULTIPLE_SMALL_BODIES_FOUND = /Matching small-bodies/;
+const REGEX_SINGLE_ASTEROID_FOUND = /Asteroid physical parameters/;
+const REGEX_SINGLE_COMET_FOUND = /Comet physical/;
+const REGEX_SINGLE_SPACECRAFT_FOUND = /spacecraft/;
 
 const REGEX_DATA_EXTRACTOR = /(?<=\=[\s]*[\~]*(\+\-)*[\s]*)(Synchronous|(\-|\+)?[0-9\.\/x]*)/g
 const REGEX_MAGNITUDE_EXTRACTOR = /10\^[0-9]*/g
@@ -34,65 +38,36 @@ module.exports = function parseSearchData(searchData) {
         throw TYPE_ERROR_STRING;
     }
 
-    let dataLine;
     let dataArray = [];
     let parsedData = [];
-    let i = 0;
 
     if(searchData.match(REGEX_SINGLE_BODY_FOUND)) {
-        console.log("We have uniquely specified a body");
-        let name = searchData.match(REGEX_NAME_EXTRACTOR);
-        name = name && name[0] && name[0].trim();
-
-        parsedData.push({
-            id: undefined,
-            name: name
-        });
-
-        datatypes.forEach(datum => {
-            raw = searchData.match(datum.regex);
-            raw = raw && raw[0] && raw[0].trim();
-
-            if(raw) {
-                var { value, magnitude, error, units } = parseRawData(raw, datum);
-
-                parsedData[0][datum.label] = {
-                    raw,
-                    value,
-                    magnitude,
-                    error,
-                    units: units || datum.units
-                }
-            }
-        });
-
-        return parsedData;
+        if(searchData.match(REGEX_SINGLE_ASTEROID_FOUND)) {
+            console.log("We have uniquely identified an asteroid.");
+            //TODO: Parse the asteroid data and return it
+            return parsedData;
+        }
+        else {
+            return parseSingleBody(searchData);
+        }
     }
     else if(searchData.match(REGEX_MULTIPLE_BODIES_FOUND)) {
-        console.log(`We have found multiple bodies that match the query`);
-
-        dataArray = searchData.split(/[\*]{2,}/)[1].split(/[\n|\r\n]/); //extract table data
-        dataArray = dataArray.filter((line) => line.trim() !== "");
-
-        let startIndex = dataArray.findIndex((line) => line.match(/[\-]{2,}/));
-        startIndex++;
-        let endIndex = dataArray.findIndex((line) => line.includes("Number of matches"));
-        dataArray = dataArray.slice(startIndex, endIndex);
-        
-        let brokenString = [];
-        for(i = 0; i < dataArray.length; i++) {
-            dataArray[i] = dataArray[i].trim();
-            brokenString = dataArray[i].split(/(?<!\s)[\s]{2}|[\s]{2}(?!\s)/g);
-
-            parsedData.push({
-                id: brokenString[0],
-                name: brokenString[1],
-                designation: brokenString[2] && brokenString[2].trim() !== "" ? brokenString[2] : undefined,
-                iau: brokenString[3] && brokenString[3].trim() !== "" ? brokenString[3] : undefined
-            });
-        }
-
-        return(parsedData);
+        return parseMultipleBodies(searchData);
+    }
+    else if(searchData.match(REGEX_SINGLE_COMET_FOUND)) {
+        console.log("We have uniquely identified a comet.");
+        //TODO: Parse the comet data and return it
+        return parsedData;
+    }
+    else if(searchData.match(REGEX_SINGLE_SPACECRAFT_FOUND)) {
+        console.log("We have uniquely identified a spacecraft.");
+        //TODO: Parse the spacecraft data and return it
+        return parsedData;
+    }
+    else if(searchData.match(REGEX_MULTIPLE_SMALL_BODIES_FOUND)) {
+        console.log("We have found multiple small bodies that match the query.");
+        //TODO: Parse the small-body list and return it
+        return parsedData;
     }
     else {
         console.log("The data is of an unknown structure, and could not be parsed. Returning original string.");
@@ -100,6 +75,67 @@ module.exports = function parseSearchData(searchData) {
         parsedData.push(dataArray[1].trim());
         return(parsedData);
     }
+}
+
+function parseSingleBody(searchData) {
+    console.log("We have uniquely specified a body");
+    let parsedData = [];
+    let name = searchData.match(REGEX_NAME_EXTRACTOR);
+    name = name && name[0] && name[0].trim();
+
+    parsedData.push({
+        id: undefined,
+        name: name
+    });
+
+    datatypes.forEach(datum => {
+        raw = searchData.match(datum.regex);
+        raw = raw && raw[0] && raw[0].trim();
+
+        if(raw) {
+            var { value, magnitude, error, units } = parseRawData(raw, datum);
+
+            parsedData[0][datum.label] = {
+                raw,
+                value,
+                magnitude,
+                error,
+                units: units || datum.units
+            }
+        }
+    });
+
+    return parsedData;
+}
+
+function parseMultipleBodies(searchData) {
+    console.log(`We have found multiple bodies that match the query`);
+    let dataArray = [];
+    let parsedData = [];
+    let startIndex, endIndex, brokenString, i;
+
+    dataArray = searchData.split(/[\*]{2,}/)[1].split(/[\n|\r\n]/); //extract table data
+    dataArray = dataArray.filter((line) => line.trim() !== "");
+
+    startIndex = dataArray.findIndex((line) => line.match(/[\-]{2,}/));
+    startIndex++;
+    endIndex = dataArray.findIndex((line) => line.includes("Number of matches"));
+    dataArray = dataArray.slice(startIndex, endIndex);
+    
+    brokenString = [];
+    for(i = 0; i < dataArray.length; i++) {
+        dataArray[i] = dataArray[i].trim();
+        brokenString = dataArray[i].split(/(?<!\s)[\s]{2}|[\s]{2}(?!\s)/g);
+
+        parsedData.push({
+            id: brokenString[0],
+            name: brokenString[1],
+            designation: brokenString[2] && brokenString[2].trim() !== "" ? brokenString[2] : undefined,
+            iau: brokenString[3] && brokenString[3].trim() !== "" ? brokenString[3] : undefined
+        });
+    }
+
+    return(parsedData);
 }
 
 function parseRawData(raw, datum) {
