@@ -1,6 +1,6 @@
 {
     "name": "@zachfejes/js-horizons",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "JavaScript client wrapper for the HORIZONS database",
     "license": "MIT",
     "repository": "zachfejes/js-horizons",
