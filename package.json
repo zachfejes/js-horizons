@@ -27,13 +27,13 @@
         "telnet-client": "^1.2.11"
     },
     "devDependencies": {
-        "babel-core": "^6.26.3",
+        "@babel/core": "^7.8.4",
+        "@babel/preset-env": "^7.8.4",
         "babel-jest": "^23.6.0",
-        "babel-preset-env": "^1.7.0",
-        "coveralls": "^3.0.2",
-        "jest": "^23.6.0",
+        "coveralls": "^3.0.9",
+        "jest": "^25.1.0",
         "merge": "^1.2.1",
-        "regenerator-runtime": "^0.12.1"
+        "regenerator-runtime": "^0.13.1"
     },
     "scripts": {
         "test": "jest --env=jsdom --coverage"
