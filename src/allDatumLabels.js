@@ -384,7 +384,7 @@ const datatypes = [
             "A"
         ],
         units: "km",
-        regex: /((?<!([A-Za-z]))A|Semi\-major Axis)[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+        regex: /((?<!([A-Za-z]))(Semi\-major |\s)A(xis|\s))[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
     },
     {
         label: "Eccentricity",
@@ -393,7 +393,7 @@ const datatypes = [
             "EC"
         ],
         units: undefined,
-        regex: /(Eccentricity|EC)[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+        regex: /(Eccentricity|EC(centricity|\s))[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
     },
     {
         label: "Inclination",
@@ -402,7 +402,7 @@ const datatypes = [
             "IN"
         ],
         units: "deg",
-        regex: /(IN|Inclination)[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
+        regex: /(IN(clination|\s)|Inclination)[A-Za-z\s\(\)\,0-9\^\-\+\/]*\=[\s]*[0-9x\+\-\.\(\)\~\^]*([\s]*\+\-[\s]*[0-9\+\-\.\(\)\~\^]*)*/gi
     },
     {
         label: "Roche Limit (Ice)",
