@@ -24,7 +24,7 @@
         "ephemerids"
     ],
     "dependencies": {
-        "telnet-client": "^0.16.1"
+        "telnet-client": "^1.2.11"
     },
     "devDependencies": {
         "babel-core": "^6.26.3",
