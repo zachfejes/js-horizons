@@ -106,7 +106,7 @@ To retrieve planetary and orbital information, we will need to initialize our co
 
 
 ```
-    const Horizons = require("../index");
+    const { Horizons } = require("@zachfejes/js-horizons");
 
     const horizons = new Horizons();
     horizons.initialize((error, response) => {
@@ -139,7 +139,7 @@ Good catch. What happened here is that our query wasn't unique enough. The searc
 In our case, we just want info on the planet jupiter, and we can see from the response that it's unique ID is `599`, so let's `search` for that instead.
 
 ```
-    const Horizons = require("../index");
+    const { Horizons } = require("@zachfejes/js-horizons");
 
     const horizons = new Horizons();
     horizons.initialize((error, response) => {
